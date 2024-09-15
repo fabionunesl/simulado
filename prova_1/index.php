@@ -1,10 +1,18 @@
 <?php
 session_start();
 
+// Certifique-se de que as perguntas estão sendo incluídas corretamente
 $questions = include 'questions.php';
 
+// Inicialize o índice da pergunta, se não estiver definido
 if (!isset($_SESSION['current_question_index'])) {
     $_SESSION['current_question_index'] = 0;
+}
+
+// Verificar se o tempo final da prova já foi salvo na sessão
+if (!isset($_SESSION['end_time'])) {
+    // Definir o tempo final da prova (45 minutos a partir de agora)
+    $_SESSION['end_time'] = time() + 45 * 60;
 }
 
 $current_question_index = $_SESSION['current_question_index'];
@@ -29,8 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-// Definir o tempo final do cronômetro (45 minutos a partir de agora)
-$end_time = time() + 45 * 60;
+$end_time = $_SESSION['end_time'];
 ?>
 
 <!DOCTYPE html>
@@ -82,14 +89,14 @@ $end_time = time() + 45 * 60;
             border-radius: 5px;
             background-color: #f8f8f8;
             border: 1px solid #ddd;
-            box-sizing: border-box; /* Inclui padding e border na largura total */
+            box-sizing: border-box;
         }
         .answers input[type="radio"] {
             margin-right: 10px;
-            margin-left: 0; /* Remove a margem padrão esquerda para alinhar melhor */
+            margin-left: 0;
         }
         .answers span {
-            flex: 0 0 20px; /* Espaço reservado para a letra das alternativas */
+            flex: 0 0 20px;
             font-weight: bold;
         }
         .button {
@@ -105,6 +112,11 @@ $end_time = time() + 45 * 60;
         .button:hover {
             background-color: #e65c00;
         }
+        .error-message {
+            color: red;
+            font-size: 16px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -116,7 +128,7 @@ $end_time = time() + 45 * 60;
         <div class="question">
             <p><?php echo $current_question['question']; ?></p>
         </div>
-        <form action="index.php" method="post">
+        <form id="questionForm" action="index.php" method="post">
             <div class="answers">
                 <?php 
                 $letters = ['A', 'B', 'C', 'D', 'E'];
@@ -128,12 +140,13 @@ $end_time = time() + 45 * 60;
                     </label>
                 <?php endforeach; ?>
             </div>
-            <input type="submit" class="button" value="Próxima">
+            <input type="button" class="button" value="Próxima" onclick="validateForm()">
         </form>
+        <div id="error-message" class="error-message"></div>
     </div>
 
     <script>
-        var endTime = <?php echo $end_time * 1000; ?>;
+        var endTime = <?php echo $end_time * 1000; ?>; // Tempo final da prova em milissegundos
         var timerElement = document.getElementById('timer');
 
         function updateTimer() {
@@ -143,6 +156,7 @@ $end_time = time() + 45 * 60;
             if (distance < 0) {
                 clearInterval(timerInterval);
                 timerElement.innerHTML = "Tempo esgotado!";
+                document.getElementById('questionForm').submit(); // Enviar o formulário automaticamente
                 return;
             }
 
@@ -156,6 +170,26 @@ $end_time = time() + 45 * 60;
         }
 
         var timerInterval = setInterval(updateTimer, 1000);
+
+        function validateForm() {
+            var form = document.getElementById('questionForm');
+            var radios = document.getElementsByName('answer');
+            var isAnswerSelected = false;
+            
+            for (var i = 0; i < radios.length; i++) {
+                if (radios[i].checked) {
+                    isAnswerSelected = true;
+                    break;
+                }
+            }
+
+            if (!isAnswerSelected) {
+                document.getElementById('error-message').innerHTML = "Por favor, selecione uma resposta.";
+            } else {
+                form.submit();
+            }
+        }
     </script>
 </body>
 </html>
+

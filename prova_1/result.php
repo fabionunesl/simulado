@@ -26,6 +26,10 @@ foreach ($questions as $index => $question) {
     ];
 }
 
+// Calcular a porcentagem de acertos
+$total_questions = count($questions);
+$score_percentage = ($score / $total_questions) * 100;
+
 // Limpar dados da sessão
 session_destroy();
 ?>
@@ -53,6 +57,25 @@ session_destroy();
             background: #ffffff;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .result-header .status {
+            font-size: 24px;
+            font-weight: bold;
+            margin-left: 20px;
+        }
+        .result-header .approved {
+            color: green;
+        }
+        .result-header .disapproved {
+            color: red;
         }
         .question-result {
             margin: 20px 0;
@@ -101,8 +124,14 @@ session_destroy();
 </head>
 <body>
     <div class="container">
-        <h1>Resultado da Prova</h1>
-        <p>Você acertou <?php echo $score; ?> de <?php echo count($questions); ?> perguntas.</p>
+        <div class="result-header">
+            <div>Resultado da Prova</div>
+            <div class="status <?php echo $score_percentage >= 70 ? 'approved' : 'disapproved'; ?>">
+                <?php echo $score_percentage >= 70 ? 'APROVADO' : 'REPROVADO'; ?>
+            </div>
+        </div>
+        <p>Você acertou <?php echo $score; ?> de <?php echo $total_questions; ?> perguntas.</p>
+        <p>Sua pontuação: <?php echo number_format($score_percentage, 2); ?>%</p>
         
         <?php foreach ($results as $result): ?>
             <div class="question-result">
