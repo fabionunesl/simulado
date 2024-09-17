@@ -1,6 +1,17 @@
 <?php
 session_start();
 
+// Se o índice da pergunta não estiver definido, redireciona para start.php
+if (!isset($_SESSION['current_question_index'])) {
+    header('Location: start.php');
+    exit();
+}
+
+// Certifique-se de que as perguntas estão sendo incluídas corretamente
+$questions = include 'questions.php';
+
+session_start();
+
 // Certifique-se de que as perguntas estão sendo incluídas corretamente
 $questions = include 'questions.php';
 
