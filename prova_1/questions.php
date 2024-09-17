@@ -85,7 +85,7 @@ return [
         'correct' => 3 // Índice da resposta correta QUESTÃO 7
     ],
     [
-        'question' => "08-Segundo o Código, é infração de natureza gravíssima conduzir o veículo",
+        'question' => "Segundo o Código, é infração de natureza gravíssima conduzir o veículo",
         'answers' => [
             'utilizando-se de fones de ouvido conectados a aparelhagem sonora ou de telefone celular;',
             'conversando animadamente com os passageiros',
@@ -284,7 +284,7 @@ return [
             'sem utilizar capacete de segurança - infração grave;',
             'sem utilizar vestuário de acordo com a regulamentação do CONTRAN- infração média;',
             'utilizando capacete com a viseira levantada (sem utilizar viseira) - infração média;',
-            'utilizando capacete sem óculos de proteção – infração grave;',
+            'utilizando capacete sem óculos de proteção -  infração grave;',
             'utilizando capacete sem viseira ou óculos de proteção - infração gravíssima.'
         ],
         'correct' => 2 // Índice da resposta correta QUESTÃO 25
@@ -323,29 +323,30 @@ return [
             'nível de consciência e respiração;',
             'respiração e temperatura corporal.'
         ],
-        'correct' => 0 // Índice da resposta correta QUESTÃO 28
+        'correct' => 1 // Índice da resposta correta QUESTÃO 28
     ],
     [
-        'question' => "Veja a imagem abaixo:<br><img src='placa_mercosul.png' alt='Placa Padrão mercosul' style='max-width: 100%; height: auto;'>",
+        'question' => "Num atropelamento, a vítima passa a ter respiração rápida e irregular, fica agitada e ansiosa. Isso indica que ela",
         'answers' => [
-            'ABC',
-            'ABC',
-            'abc',
-            'abc',
-            'abc'
+            'pode estar entrando em estado de choque;',
+            'está tendo uma parada cardíaca;',
+            'sofreu uma parada respiratória;',
+            'teve um desmaio;',
+            'vai ter convulsões fortes.'
         ],
         'correct' => 0 // Índice da resposta correta QUESTÃO 29
     ],
     [
-        'question' => "Veja a imagem abaixo:<br><img src='placa_mercosul.png' alt='Placa Padrão mercosul' style='max-width: 100%; height: auto;'>",
+        'question' => "Um acidente de trânsito aconteceu numa via de mão única,
+         com várias faixas no mesmo sentido. Nesse caso, a sinalização, deve ser feita",
         'answers' => [
-            'ABC',
-            'ABC',
-            'abc',
-            'abc',
-            'abc'
+            'em ambos os lados da via;',
+            'no lado da via mais próximo de onde o acidente aconteceu; ',
+            'no lado oposto da via ao qual o acidente aconteceu;',
+            'somente no lado esquerdo da pista;',
+            'somente no lado direito da pista.'
         ],
-        'correct' => 0 // Índice da resposta correta QUESTÃO 30
+        'correct' => 1 // Índice da resposta correta QUESTÃO 30
     ],
     
     // Adicione mais perguntas aqui
